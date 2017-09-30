@@ -6,12 +6,18 @@ import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.springframework.stereotype.Service;
 
 import javax.persistence.TypedQuery;
 import java.util.List;
-
+//@Service
 public class MovieDAO {
 
+    public static MovieDAO movieDAO;
+
+    public MovieDAO() {
+        movieDAO = this;
+    }
 
     public void addMovie(Movie movie) {
         Session session = HibernateUtil.getSessionFactory().openSession();

@@ -1,58 +1,51 @@
 package com.mojafirma.cinema.view;
 
-import com.mojafirma.cinema.model.Movie;
 import com.mojafirma.cinema.model.MovieCategory;
 import com.mojafirma.cinema.model.MovieGenre;
-import com.mojafirma.cinema.model.dao.MovieDAO;
 import com.mojafirma.cinema.presenter.MoviePresenter;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.stereotype.Component;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Date;
 import java.util.Set;
-//@Component
- public class EditFrame extends JFrame {
 
-     public static EditFrame editFrame;
+public class AddMovieFrame extends JFrame {
 
-    JTextArea titleData;
-    JTextArea premiereData;
-    JTextArea directorData;
-    JComboBox<MovieGenre> genreBox;
-    JTextArea durationData;
-    JComboBox<MovieGenre> categoryBox;
-    MainFrame mainFrame;
-    MoviePresenter presenter = new MoviePresenter();
+    public static AddMovieFrame addMovieFrame;
 
-    public EditFrame(Movie movie) throws HeadlessException {
-        init(movie);
-        editFrame = this;
+    private MoviePresenter moviePresenter = new MoviePresenter();
+    private JTextArea titleData;
+    private JTextArea premiereData;
+    private JTextArea directorData;
+    private JComboBox<MovieGenre> genreBox;
+    private JTextArea durationData;
+    private JComboBox<MovieGenre> categoryBox;
+    private MainFrame mainFrame;
+
+    public AddMovieFrame() throws HeadlessException {
+        init();
+        addMovieFrame = this;
     }
 
-    private void init(Movie movie) {
-        setTitle("Edit movie");
+    private void init() {
+        setTitle("Add movie");
         setSize(500, 250);
         JPanel mainPanel = new JPanel();
         JPanel movieDetails = new JPanel();
         movieDetails.setLayout(new GridLayout(3, 2));
         JPanel titlePane = new JPanel();
         JLabel title = new JLabel("Tittle: ");
-        titleData = new JTextArea(movie.getTitle());
+        titleData = new JTextArea("______________");
         titlePane.add(title);
         titlePane.add(titleData);
         JPanel premierePane = new JPanel();
         JLabel premiere = new JLabel("Premiere: ");
-        premiereData = new JTextArea(movie.getYear().toString());
+        premiereData = new JTextArea("______________");
         premierePane.add(premiere);
         premierePane.add(premiereData);
         JPanel directorPane = new JPanel();
         JLabel director = new JLabel("Director: ");
-        directorData = new JTextArea(movie.getDirector());
+        directorData = new JTextArea("______________");
         directorPane.add(director);
         directorPane.add(directorData);
         JPanel genrePane = new JPanel();
@@ -63,7 +56,7 @@ import java.util.Set;
         genrePane.add(genreBox);
         JPanel durationPane = new JPanel();
         JLabel duration = new JLabel("Duration: ");
-        durationData = new JTextArea(String.valueOf(movie.getDuration()));
+        durationData = new JTextArea(String.valueOf(("______________")));
         durationPane.add(duration);
         durationPane.add(durationData);
         JPanel agePane = new JPanel();
@@ -87,24 +80,28 @@ import java.util.Set;
         mainPanel.add(buttonPane);
         getContentPane().add(mainPanel);
 
-
         save.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                presenter.editMovie(movie);
+                moviePresenter.addMovie();
                 setVisible(false);
             }
         });
-
-
+        cancel.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                setVisible(false);
+            }
+        });
     }
 
-    public static EditFrame getEditFrame() {
-        return editFrame;
+
+    public static AddMovieFrame getAddMovieFrame() {
+        return addMovieFrame;
     }
 
-    public static void setEditFrame(EditFrame editFrame) {
-        EditFrame.editFrame = editFrame;
+    public static void setAddMovieFrame(AddMovieFrame addMovieFrame) {
+        AddMovieFrame.addMovieFrame = addMovieFrame;
     }
 
     public JTextArea getTitleData() {
@@ -163,3 +160,4 @@ import java.util.Set;
         this.mainFrame = mainFrame;
     }
 }
+

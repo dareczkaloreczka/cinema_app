@@ -2,6 +2,9 @@ package com.mojafirma.cinema.view;
 
 import com.mojafirma.cinema.model.Movie;
 import com.mojafirma.cinema.model.dao.MovieDAO;
+import com.mojafirma.cinema.presenter.MoviePresenter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -10,14 +13,16 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
-
+//@Component
 public class MainFrame extends JFrame {
 
 
 
-    private MyTableModel model;
+    private static MyTableModel model;
     private MovieDAO movieDAO = new MovieDAO();
-    private JTable movieTable;
+    private MoviePresenter presenter = new MoviePresenter();
+    private static JTable movieTable;
+    public static MainFrame frame;
     JTextArea titleData;
     JTextArea premiereData;
     JTextArea directorData;
@@ -27,9 +32,11 @@ public class MainFrame extends JFrame {
 
     public MainFrame() throws HeadlessException {
         init();
+        frame = this;
     }
 
     private void init() {
+
         setTitle("Cinema Pitu-pitu");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(760, 500);
@@ -131,7 +138,14 @@ public class MainFrame extends JFrame {
             }
         });
 
-        fillTheTable();
+        add.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                addMovie();
+            }
+        });
+
+        presenter.fillTheTable();
     }
 
     protected void fillTheTable() {
@@ -159,6 +173,11 @@ public class MainFrame extends JFrame {
             editFrame.setVisible(true);
     }
 
+    private void addMovie(){
+        AddMovieFrame addMovieFrame = new AddMovieFrame();
+        addMovieFrame.setVisible(true);
+    }
+
     public Movie getSelectedMovie() {
         Movie movie = null;
         if (movieTable.getSelectedRow() > -1) {
@@ -168,7 +187,84 @@ public class MainFrame extends JFrame {
         return movie;
     }
 
-    public MyTableModel getModel() {
+    public static MyTableModel getModel() {
         return model;
     }
+
+    public  void setModel(MyTableModel model) {
+        this.model = model;
+    }
+
+    public  MovieDAO getMovieDAO() {
+        return movieDAO;
+    }
+
+    public void setMovieDAO(MovieDAO movieDAO) {
+        this.movieDAO = movieDAO;
+    }
+
+    public MoviePresenter getPresenter() {
+        return presenter;
+    }
+
+    public void setPresenter(MoviePresenter presenter) {
+        this.presenter = presenter;
+    }
+
+    public JTable getMovieTable() {
+        return movieTable;
+    }
+
+    public void setMovieTable(JTable movieTable) {
+        this.movieTable = movieTable;
+    }
+
+    public JTextArea getTitleData() {
+        return titleData;
+    }
+
+    public void setTitleData(JTextArea titleData) {
+        this.titleData = titleData;
+    }
+
+    public JTextArea getPremiereData() {
+        return premiereData;
+    }
+
+    public void setPremiereData(JTextArea premiereData) {
+        this.premiereData = premiereData;
+    }
+
+    public JTextArea getDirectorData() {
+        return directorData;
+    }
+
+    public void setDirectorData(JTextArea directorData) {
+        this.directorData = directorData;
+    }
+
+    public JTextArea getGenreData() {
+        return genreData;
+    }
+
+    public void setGenreData(JTextArea genreData) {
+        this.genreData = genreData;
+    }
+
+    public JTextArea getDurationData() {
+        return durationData;
+    }
+
+    public void setDurationData(JTextArea durationData) {
+        this.durationData = durationData;
+    }
+
+    public JTextArea getAgeData() {
+        return ageData;
+    }
+
+    public void setAgeData(JTextArea ageData) {
+        this.ageData = ageData;
+    }
+
 }
