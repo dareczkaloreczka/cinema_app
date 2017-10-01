@@ -2,15 +2,11 @@ package com.mojafirma.cinema.model.dao;
 
 import com.mojafirma.cinema.HibernateUtil;
 import com.mojafirma.cinema.model.Movie;
-import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.springframework.stereotype.Service;
-
 import javax.persistence.TypedQuery;
 import java.util.List;
-//@Service
 public class MovieDAO {
 
     public static MovieDAO movieDAO;
@@ -67,6 +63,14 @@ public class MovieDAO {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction tx = session.beginTransaction();
         session.saveOrUpdate(movie);
+        tx.commit();
+        session.close();
+    }
+
+    public void removeMovie(Movie movie){
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction tx = session.beginTransaction();
+        session.remove(movie);
         tx.commit();
         session.close();
     }

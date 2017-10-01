@@ -12,4 +12,8 @@ public enum TicketOption {
     TicketOption(double factor) {
         this.factor = factor;
     }
+
+    public double getFactor() {
+        return factor;
+    }
 }

@@ -21,6 +21,8 @@ public class CinemaHall {
     @Column
     private int seatsInRow;
 
+
+
     public int getId() {
         return id;
     }

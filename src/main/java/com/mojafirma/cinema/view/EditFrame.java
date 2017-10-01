@@ -3,20 +3,13 @@ package com.mojafirma.cinema.view;
 import com.mojafirma.cinema.model.Movie;
 import com.mojafirma.cinema.model.MovieCategory;
 import com.mojafirma.cinema.model.MovieGenre;
-import com.mojafirma.cinema.model.dao.MovieDAO;
 import com.mojafirma.cinema.presenter.MoviePresenter;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.stereotype.Component;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Date;
 import java.util.Set;
-//@Component
- public class EditFrame extends JFrame {
+ public class EditFrame extends JDialog {
 
      public static EditFrame editFrame;
 
@@ -92,6 +85,7 @@ import java.util.Set;
             @Override
             public void actionPerformed(ActionEvent e) {
                 presenter.editMovie(movie);
+                presenter.updateView();
                 setVisible(false);
             }
         });

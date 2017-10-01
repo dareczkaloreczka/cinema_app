@@ -20,6 +20,7 @@ public class Seance {
     private double price;
 
     private TicketOption ticketOption;
+
     @ManyToOne
     @JoinColumn
     private Movie movie;
@@ -28,6 +29,12 @@ public class Seance {
     @OneToMany
     private List<Reservation> reservations;
 
+    @Transient
+    private static final double STANDARD_PRICE = 26.00;
+
+    public Seance() {
+       // price = STANDARD_PRICE * ticketOption.getFactor();
+    }
 
     public List<Reservation> getReservations() {
         return reservations;

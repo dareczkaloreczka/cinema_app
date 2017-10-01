@@ -2,6 +2,7 @@ package com.mojafirma.cinema.view;
 
 import com.mojafirma.cinema.model.MovieCategory;
 import com.mojafirma.cinema.model.MovieGenre;
+import com.mojafirma.cinema.presenter.MovieObservable;
 import com.mojafirma.cinema.presenter.MoviePresenter;
 import javax.swing.*;
 import java.awt.*;
@@ -9,7 +10,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Set;
 
-public class AddMovieFrame extends JFrame {
+
+public class AddMovieFrame extends JDialog {
 
     public static AddMovieFrame addMovieFrame;
 
@@ -21,8 +23,9 @@ public class AddMovieFrame extends JFrame {
     private JTextArea durationData;
     private JComboBox<MovieGenre> categoryBox;
     private MainFrame mainFrame;
+    private JButton save;
 
-    public AddMovieFrame() throws HeadlessException {
+    public AddMovieFrame(JFrame parent) throws HeadlessException {
         init();
         addMovieFrame = this;
     }
@@ -71,7 +74,7 @@ public class AddMovieFrame extends JFrame {
         movieDetails.add(genrePane);
         movieDetails.add(durationPane);
         movieDetails.add(agePane);
-        JButton save = new JButton("Save");
+        save = new JButton("Save");
         JButton cancel = new JButton("Cancel");
         JPanel buttonPane = new JPanel();
         buttonPane.add(save);
@@ -80,6 +83,7 @@ public class AddMovieFrame extends JFrame {
         mainPanel.add(buttonPane);
         getContentPane().add(mainPanel);
 
+
         save.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -87,6 +91,7 @@ public class AddMovieFrame extends JFrame {
                 setVisible(false);
             }
         });
+
         cancel.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -158,6 +163,14 @@ public class AddMovieFrame extends JFrame {
 
     public void setMainFrame(MainFrame mainFrame) {
         this.mainFrame = mainFrame;
+    }
+
+    public MoviePresenter getMoviePresenter() {
+        return moviePresenter;
+    }
+
+    public JButton getSave() {
+        return save;
     }
 }
 
